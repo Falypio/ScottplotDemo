@@ -1,0 +1,154 @@
+﻿<UserControl
+    x:Class="PrismAppDemo.Views.PageView.ViewD"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:scope="clr-namespace:PrismAppDemo.Views.Oscilloscope"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="300" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <!--<EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>-->
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="togbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="togbtn">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border
+            x:Name="GridMenu"
+            Grid.Column="0"
+            Width="300"
+            HorizontalAlignment="Left"
+            Panel.ZIndex="1"
+            BorderBrush="#2196f3"
+            BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ToggleButton
+                    x:Name="togbtn"
+                    Width="30"
+                    Margin="0,0,-30,0"
+                    HorizontalAlignment="Right"
+                    IsChecked="True">
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border
+                                x:Name="borToggle"
+                                Width="30"
+                                Height="30"
+                                Background="Bisque"
+                                CornerRadius="3">
+                                <!--<TextBlock
+                                    x:Name="signalTB"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Foreground="Black"
+                                    Text="123" />-->
+                                <materialDesign:PackIcon
+                                    x:Name="signalTB"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="Black"
+                                    Kind="ArrowCollapseLeft" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="false">
+                                    <Setter TargetName="signalTB" Property="Kind" Value="ArrowCollapseRight" />
+                                    <Setter TargetName="borToggle" Property="ToolTip" Value="开始" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter TargetName="signalTB" Property="Kind" Value="ArrowCollapseLeft" />
+                                    <Setter TargetName="borToggle" Property="ToolTip" Value="停止" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel>
+                        <GroupBox
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Header="通道">
+                            <scope:ChannelListView DataContext="{Binding ChannelListModel}" />
+                        </GroupBox>
+                        <GroupBox
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Header="标尺">
+                            <scope:VernierListView DataContext="{Binding VernierListModel}" />
+                        </GroupBox>
+                        <GroupBox
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Header="控制">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Button
+                                        x:Name="BtnStart"
+                                        Width="100"
+                                        Height="30"
+                                        Margin="5,0"
+                                        Click="BtnStart_Click">
+                                        开始
+                                    </Button>
+
+                                    <Button
+                                        x:Name="BtnEnd"
+                                        Width="100"
+                                        Height="30"
+                                        Click="BtnEnd_Click">
+                                        停止
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <Border
+                x:Name="gdMian"
+                Grid.Column="1"
+                BorderBrush="#2196f3"
+                BorderThickness="1" MinWidth="1000">
+                <scope:ScottPlotView x:Name="Plot" />
+            </Border>
+        </Grid>
+
+    </Grid>
+</UserControl>

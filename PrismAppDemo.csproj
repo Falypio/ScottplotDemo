@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Common\Themes\iconfont.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Common\Themes\iconfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AIStudio.Wpf.DiagramDesigner" Version="1.1.7" />
+    <PackageReference Include="AIStudio.Wpf.Flowchart" Version="1.0.7" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="ScottPlot.WPF" Version="4.1.68" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrismAppDemo.Controls\PrismAppDemo.Controls.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,93 @@
+﻿<UserControl
+    x:Class="PrismAppDemo.Views.PageView.ViewE"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dd="https://gitee.com/akwkevin/aistudio.-wpf.-diagram"
+    xmlns:local="clr-namespace:PrismAppDemo.Common.Themes"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:prism="http://prismlibrary.com/"
+    MinWidth="1000"
+    MinHeight="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <local:FlowLine
+                    x:Name="dashedLine"
+                    Height="5"
+                    IsDashed="{Binding ElementName=toggleButton, Path=IsChecked}"
+                    IsFlow="Left"
+                    Stroke="Black"
+                    StrokeThickness="5"
+                    X1="0"
+                    X2="200"
+                    Y1="0"
+                    Y2="0" />
+                <ToggleButton x:Name="toggleButton" />
+
+                <local:FlowLineControl
+                    Width="10"
+                    Height="50"
+                    Margin="0,40,0,0"
+                    BorderBrush="Black"
+                    BorderThickness="1,0,1,0"
+                    FlowBrush="Red"
+                    IsDashed="True"
+                    IsFlow="Stop"
+                    StrokeThickness="15"
+                    X1="5"
+                    X2="5"
+                    Y1="0"
+                    Y2="50" />
+            </StackPanel>
+            <Grid Grid.Row="1" VerticalAlignment="Center">
+                <!--<Line
+                    x:Name="line"
+                    Margin="0"
+                    VerticalAlignment="Center"
+                    Stroke="Gray"
+                    StrokeThickness="5"
+                    X1="50"
+                    X2="500">
+                    <Line.StrokeDashArray>
+                        <DoubleCollection>2 2</DoubleCollection>
+                    </Line.StrokeDashArray>
+                </Line>-->
+                <local:FlowLine
+                    x:Name="dashedLine1"
+                    Width="200"
+                    Height="5"
+                    IsDashed="{Binding ElementName=toggleButton, Path=IsChecked}"
+                    IsFlow="Right"
+                    Stroke="Black"
+                    StrokeThickness="10"
+                    X1="0"
+                    X2="200"
+                    Y1="0"
+                    Y2="0" />
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="50"
+                        Height="50"
+                        Kind="Abacus" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <!--<dd:DiagramControl
+            x:Name="diagram"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            DataContext="{Binding Diagram}" />-->
+    </Grid>
+</UserControl>

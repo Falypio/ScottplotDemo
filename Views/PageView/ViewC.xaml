@@ -1,0 +1,112 @@
+﻿<UserControl
+    x:Class="PrismAppDemo.Views.PageView.ViewC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    MinWidth="1000"
+    MinHeight="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="Bisque">
+    <UserControl.Resources>
+        <!--  GridSplitter样式  -->
+        <Style x:Key="GridSplitterPreviewStyle">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Fill="#80000000" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GridSplitterStyle1" TargetType="{x:Type GridSplitter}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+            <Setter Property="PreviewStyle" Value="{StaticResource GridSplitterPreviewStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridSplitter}">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Button
+                                    Name="btnExpend"
+                                    Height="50"
+                                    VerticalAlignment="Center"
+                                    Panel.ZIndex="0"
+                                    Content=":"
+                                    Cursor="Hand" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Name="grdWorkbench">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.282*" />
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="0.718*" />
+        </Grid.ColumnDefinitions>
+        <Grid
+            Name="grd1"
+            Margin="0"
+            Background="#FFD8D8D8" />
+        <GridSplitter
+            x:Name="gsSplitterr"
+            Grid.Column="1"
+            Margin="0"
+            HorizontalAlignment="Stretch"
+            Background="#FF9F9F9F"
+            Style="{DynamicResource GridSplitterStyle1}" />
+        <Grid
+            Name="grd2"
+            Grid.Column="2"
+            Margin="5,0,-5,0"
+            Background="#FFEBF5F7">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Button
+                    x:Name="AddData"
+                    Width="100"
+                    Height="30"
+                    Margin="3"
+                    Click="AddData_Click"
+                    Content="添加行" />
+                <Button
+                    x:Name="AddColumn"
+                    Width="120"
+                    Height="30"
+                    Margin="3"
+                    Click="AddColumn_Click"
+                    Content="添加列" />
+                <Button
+                    x:Name="UpdateDateGrid"
+                    Width="120"
+                    Height="30"
+                    Margin="3"
+                    Click="UpdateDateGrid_Click"
+                    Content="更新数据" />
+            </StackPanel>
+            <DataGrid
+                x:Name="dataGrid"
+                Grid.Row="1"
+                CanUserAddRows="False" />
+            <DataGrid
+                x:Name="dg"
+                Grid.Row="2"
+                AutoGenerateColumns="False"
+                IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Key}" Header="ch" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </Grid>
+</UserControl>
