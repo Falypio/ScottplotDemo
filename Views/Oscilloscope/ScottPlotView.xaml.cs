@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using AIStudio.Wpf.DiagramDesigner;
 using ImTools;
@@ -79,7 +80,7 @@ namespace PrismAppDemo.Views.Oscilloscope
             component.Plot.SetAxisLimits(0, 2000, -100, 100);//自定义初始Y轴与X轴范围
             //component.Plot.YAxis.SetZoomInLimit(100);//Y最小范围
             //component.Plot.YAxis.SetZoomOutLimit(1000);//Y最大范围
-            //component.Plot.XAxis.SetZoomInLimit(10);//X最小范围
+            component.Plot.XAxis.SetZoomInLimit(100);//X最小范围
              //component.Plot.XAxis.SetZoomOutLimit(pointMaxCount);//X最大范围
             //component.Plot.TopAxis.Ticks(true);//显示顶X轴
             //component.Plot.TopAxis.SetZoomInLimit(100);//顶X最小范围
@@ -104,6 +105,9 @@ namespace PrismAppDemo.Views.Oscilloscope
 
         private void ZoomScopeArray()
         {
+
+            component.Configuration.ScrollWheelZoomFraction = 0.5;//小格缩放
+            double[] xs = DataGen.Consecutive((int)SampleRate);
             //double sad = SampleRate;
             //while (sad>10)
             //{
@@ -118,11 +122,15 @@ namespace PrismAppDemo.Views.Oscilloscope
             // 根据X轴范围计算刻度间隔
             double xRange = xMax - xMin;
             double tickSpacing = xRange / 10; // 这里设置为10个刻度
+            if (tickSpacing < 10)
+            {
+                tickSpacing = 10;
+            }
 
             // 设置X轴的刻度间隔
             component.Plot.XAxis.ManualTickSpacing(tickSpacing, ScottPlot.Ticks.DateTimeUnit.Decisecond);
+            //component.Plot.XAxis.ManualTickSpacing(tickSpacing);//定义的刻度间距
             //component.Plot.XAxis.MinimumTickSpacing(tickSpacing);
-
             component.Plot.SetAxisLimitsX(xMin, xMax);
             // 更新绘图
             component.Refresh();
@@ -134,6 +142,7 @@ namespace PrismAppDemo.Views.Oscilloscope
             //component.Plot.XAxis.AxisTicks.MinorLineWidth = 2;
             //// 设置X轴的刻度间隔
             //component.Plot.XAxis.TickDensity(1);
+            //component.Plot.XAxis.ManualTickSpacing(2);//定义的刻度间距
             //component.Plot.XAxis.MinimumTickSpacing(100);//刻度范围
             //component.Plot.XAxis.MinorLogScale(enable:true, roundMajorTicks:true,1);
             //component.Plot.YAxis.SetBoundary(-200, 200);
@@ -143,7 +152,7 @@ namespace PrismAppDemo.Views.Oscilloscope
 
             //component.Plot.XAxis.SetSizeLimit(0, 10);
 
-            component.Configuration.ScrollWheelZoomFraction = 0.2;
+       
         }
 
         /// <summary>
